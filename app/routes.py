@@ -5,6 +5,6 @@ from app.models import Item
 
 @app.route("/")
 def index():
-    db.drop_all()
+    db.create_all()
     print(Item.query.all())
     return "test ok"
