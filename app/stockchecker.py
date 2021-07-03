@@ -22,7 +22,7 @@ options.add_argument("test-type")
 options.add_argument("--log-level=3")
 options.add_argument("headless")
 
-price_dict = {"RTX3070": 900, "RTX3070TI": 900, "RTX3080": 1400, "RTX3080TI": 1550, "RTX3090": 2050}
+price_dict = {"RTX3070": 1000, "RTX3070TI": 900, "RTX3080": 1400, "RTX3080TI": 1550, "RTX3090": 2050}
 
 
 def alternate(driver):
@@ -80,8 +80,8 @@ def run():
     items = []
     
     print("searching items...")
-    # items.extend(alternate(driver))
-    items.extend(azerty(driver))
+    items.extend(alternate(driver))
+    # items.extend(azerty(driver))
     # items.extend(megekko(driver))
     print("done looking for items")
 
@@ -90,7 +90,5 @@ def run():
 
 def add_item_list_to_db(items: list):
     for item in items:
-        i = Item(item.item_name, item.url, item.price)
-        print(i)
-        db.session.add(i)
+        db.session.add(Item(name=item.item_name, url=item.url, price=item.price))
     db.session.commit()
