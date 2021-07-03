@@ -1,5 +1,5 @@
 # my own exlusions
-database.db
+app/database.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
