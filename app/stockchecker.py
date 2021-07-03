@@ -86,6 +86,8 @@ def run():
     print("done looking for items")
 
     add_item_list_to_db(items)
+
+    driver.quit()
     
 
 def add_item_list_to_db(items: list):

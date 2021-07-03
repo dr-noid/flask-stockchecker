@@ -6,8 +6,7 @@ from app import stockchecker
 
 @app.route("/")
 def index():
-    print(Item.query.all())
-    return "test ok"
+    return render_template("index.html", items = Item.query.all())
 
 
 @app.route("/reload", methods=["GET", "POST"])
