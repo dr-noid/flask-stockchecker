@@ -5,12 +5,13 @@ from app.models import Item
 from app import stockchecker
 import asyncio
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
     return render_template("index.html", items = Item.query.all())
 
 
 @app.route("/reload", methods=["GET", "POST"])
 async def reload():
+    Item.query.delete()
     await stockchecker.run()
     return redirect("/")

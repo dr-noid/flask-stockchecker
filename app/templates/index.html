@@ -1,19 +1,69 @@
 {% extends "base.html" %}
 
 {% block head %}
-<title>[Stockchecker]</title>
+<title>[Flask-Stockchecker]</title>
+{% endblock %}
+
+{% block navbar %}
+<nav class="bg-gray-800">
+    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+        <div class="relative flex items-center justify-between h-20">
+            <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
+            </div>
+            <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+                <div class="text-2xl flex-shrink-0 flex items-center space-x-2">
+                    <img class="block h-8 w-auto"
+                        src="https://tailwindui.com/img/logos/workflow-mark-indigo-500.svg" alt="Workflow">
+                    <!-- <img class="hidden lg:block h-8 w-auto"
+                        src="https://tailwindui.com/img/logos/workflow-logo-indigo-500-mark-white-text.svg"
+                        alt="Workflow"> -->
+                    <span class="text-textwhite font-bold">[ Stockchecker ]</span>
+                </div>
+                <div class="hidden sm:block sm:ml-6">
+                    <div class="flex space-x-4">
+                        <!-- Current: "bg-gray-900 text-white", Default: "text-gray-300 hover:bg-gray-700 hover:text-white" -->
+                        <a href="reload" class="bg-gray-900 text-white px-3 py-2 rounded-md text-sm font-medium"
+                            aria-current="page">Reload</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
 {% endblock %}
 
 {% block body %}
-<div class="grid grid-cols-4">
-    {% for item in items %}
-    <div class="m-6 p-2 border-2 rounded-lg border-lavender">
-        <span class="text-textwhite text-2xl font-mono">{{ item.name }}</span>
-        <div class="border-b-2 my-2"></div>
-        <span><a href="{{ item.url }}" class="font-mono text-lightblue text-xl">Link (click me)</a></span>
-        <div></div>
-        <span class="text-lightblue font-mono text-xl">Price: {{ item.price }}</span>
+<div class="flex border-t border-indigo-500">
+    <div class="border-r-2 p-6 border-indigo-500">
+        <p class="text-textwhite font-medium text-2xl pb-4">Filters</p>
+        <div class="border-b-2 border-indigo-500"></div>
+        <form class="grid grid-cols-2 space-y-4 pt-4" action="/reload" method="POST">
+            <input type="checkbox" name="RTX3070" value="RTX 3070">
+            <label for="RTX3070">RTX 3070</label>
+            <input type="checkbox" name="RTX3070TI" value="RTX3070TI">
+            <label for="RTX3070TI">RTX 3070TI</label>
+            <input type="checkbox" name="RTX3080" value="RTX3080">
+            <label for="RTX3070">RTX 3080</label>
+            <input type="checkbox" name="RTX3080TI" value="RTX3080TI">
+            <label for="RTX3070TI">RTX 3070TI</label>
+            <input type="checkbox" name="RTX3090" value="RTX3090">
+
+            <button type="submit" class="text-lightblue bg-gray-900 px-3 py-2 rounded-md">Reload</button>
+        </form>
     </div>
-    {% endfor %}
+    {% if items is undefined %}
+    <p class="text-lightyellow absolute text-center">No Items</p>
+    {% endif %}
+    <div class="grid grid-cols-4">
+        {% for item in items %}
+        <div class="m-6 p-2 border-2 rounded-lg border-lavender">
+            <span class="text-textwhite text-2xl font-mono">{{ item.name }}</span>
+            <div class="border-b-2 my-2"></div>
+            <a href="{{ item.url }}" class="font-mono text-lightblue text-xl">Link (click me)</a>
+            <div></div>
+            <span class="text-lightblue font-mono text-xl">Price: &euro; {{ item.price }}</span>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock %}
