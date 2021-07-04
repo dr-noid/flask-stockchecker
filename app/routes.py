@@ -11,7 +11,8 @@ def index():
 @app.get("/reload")
 async def reload():
     Item.query.delete()
-    # gpus = request.values.getlist("gpu")
-    gpus = []
+    gpus = request.values.getlist("gpu")
+    lhr = request.values.get("lhr")
+    prices = request.values.getlist("price")
     await stockchecker.run(gpus)
     return redirect("/")
