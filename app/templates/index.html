@@ -4,10 +4,16 @@
 <title>[Stockchecker]</title>
 {% endblock %}
 
-
-
 {% block body %}
-<div>
-    
+<div class="grid grid-cols-4">
+    {% for item in items %}
+    <div class="m-6 p-2 border-2 rounded-lg border-lavender">
+        <span class="text-textwhite text-2xl font-mono">{{ item.name }}</span>
+        <div class="border-b-2 my-2"></div>
+        <span><a href="{{ item.url }}" class="font-mono text-lightblue text-xl">Link (click me)</a></span>
+        <div></div>
+        <span class="text-lightblue font-mono text-xl">Price: {{ item.price }}</span>
+    </div>
+    {% endfor %}
 </div>
 {% endblock %}

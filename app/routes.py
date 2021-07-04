@@ -3,6 +3,7 @@ from app import db
 from flask import render_template, url_for, flash, redirect
 from app.models import Item
 from app import stockchecker
+import asyncio
 
 @app.route("/")
 def index():
@@ -10,6 +11,6 @@ def index():
 
 
 @app.route("/reload", methods=["GET", "POST"])
-def reload():
-    stockchecker.run()
+async def reload():
+    await stockchecker.run()
     return redirect("/")

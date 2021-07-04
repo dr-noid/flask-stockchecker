@@ -75,14 +75,14 @@ def coolblue(driver):
     return coolblue.get_items(driver)
 
 
-def run():
+async def run():
     driver = webdriver.Chrome(ChromeDriverManager(print_first_line=False, log_level=0).install(), options=options)
     items = []
     
     print("searching items...")
     items.extend(alternate(driver))
-    # items.extend(azerty(driver))
-    # items.extend(megekko(driver))
+    items.extend(azerty(driver))
+    items.extend(megekko(driver))
     print("done looking for items")
 
     add_item_list_to_db(items)
