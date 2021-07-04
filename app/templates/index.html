@@ -33,21 +33,30 @@
 {% endblock %}
 
 {% block body %}
-<div class="flex border-t border-indigo-500">
-    <div class="border-r-2 p-6 border-indigo-500">
+<div class="border-t border-indigo-500">
+    <div class="border-r-2 px-20 py-6 border-indigo-500">
         <p class="text-textwhite font-medium text-2xl pb-4">Filters</p>
         <div class="border-b-2 border-indigo-500"></div>
-        <form class="grid grid-cols-2 space-y-4 pt-4" action="/reload" method="POST">
-            <input type="checkbox" name="RTX3070" value="RTX 3070">
-            <label for="RTX3070">RTX 3070</label>
-            <input type="checkbox" name="RTX3070TI" value="RTX3070TI">
-            <label for="RTX3070TI">RTX 3070TI</label>
-            <input type="checkbox" name="RTX3080" value="RTX3080">
-            <label for="RTX3070">RTX 3080</label>
-            <input type="checkbox" name="RTX3080TI" value="RTX3080TI">
-            <label for="RTX3070TI">RTX 3070TI</label>
-            <input type="checkbox" name="RTX3090" value="RTX3090">
-
+        <form class="grid space-y-4 pt-4 text-textwhite" action="/reload" method="GET">
+            <div>
+                <input type="checkbox" name="gpu" value="RTX3070" class="rounded text-pink-500">
+                <label for="RTX3070">RTX 3070</label>
+            </div>
+            <div>
+                <input type="checkbox" name="gpu" value="RTX3070TI">
+                <label for="RTX3070TI">RTX 3070TI</label>
+            </div>
+                <div><input type="checkbox" name="gpu" value="RTX3080">
+                <label for="RTX3080">RTX 3080</label>
+            </div>
+            <div>
+                <input type="checkbox" name="gpu" value="RTX3080TI">
+                <label for="RTX3080TI">RTX 3080TI</label>
+            </div>
+            <div>
+                <input type="checkbox" name="gpu" value="RTX3090">
+                <label for="RTX30900">RTX 3090</label>
+            </div>
             <button type="submit" class="text-lightblue bg-gray-900 px-3 py-2 rounded-md">Reload</button>
         </form>
     </div>

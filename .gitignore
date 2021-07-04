@@ -2,6 +2,7 @@
 database.db
 .vscode
 database.db-journal
+tailwind.css
 
 
 # Byte-compiled / optimized / DLL files

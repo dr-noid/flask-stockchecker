@@ -1,4 +1,3 @@
-from app.src.Item import Item as stockchecker_item
 from app import db
 from app.models import Item
 
@@ -25,12 +24,13 @@ options.add_argument("headless")
 price_dict = {"RTX3070": 1000, "RTX3070TI": 900, "RTX3080": 1400, "RTX3080TI": 1550, "RTX3090": 2050}
 
 
-def alternate(driver):
+def alternate(driver, gpus):
         alternate = Website(html_item_grid="productBox", in_stock_text="Direct leverbaar",
                                     html_price="price", site_enum=SiteEnum.Alternate)
-
-        alternate.add_item(("https://www.alternate.nl/Grafische-kaarten/RTX-3070", price_dict["RTX3070"]))
-        alternate.add_item(("https://www.alternate.nl/Grafische-kaarten/RTX-3070-TI", price_dict["RTX3070TI"]))
+        if 'RTX3070' in gpus:
+            alternate.add_item(("https://www.alternate.nl/Grafische-kaarten/RTX-3070", price_dict["RTX3070"]))
+        if 'RTX3070TI' in gpus:
+            alternate.add_item(("https://www.alternate.nl/Grafische-kaarten/RTX-3070-TI", price_dict["RTX3070TI"]))
         alternate.add_item(("https://www.alternate.nl/Grafische-kaarten/RTX-3080", price_dict["RTX3080"]))
         alternate.add_item(("https://www.alternate.nl/Grafische-kaarten/RTX-3080-TI", price_dict["RTX3080TI"]))
         alternate.add_item(("https://www.alternate.nl/Grafische-kaarten/RTX-3090", price_dict["RTX3090"]))
@@ -38,7 +38,7 @@ def alternate(driver):
         return alternate.get_items(driver)
 
 
-def azerty(driver):
+def azerty(driver, gpus):
         azerty = Website(html_item_grid="item-container", in_stock_text="Volgende werkdag in huis",
                                  html_price="price", site_enum=SiteEnum.Azerty)
 
@@ -51,7 +51,7 @@ def azerty(driver):
         return azerty.get_items(driver)
 
 
-def megekko(driver):
+def megekko(driver, gpus):
         megekko = Website(html_item_grid="productList", in_stock_text="Uit eigen voorraad leverbaar",
                                   html_price="euro", site_enum=SiteEnum.Megekko)
 
@@ -64,7 +64,7 @@ def megekko(driver):
         return megekko.get_items(driver)
 
 
-def coolblue(driver):
+def coolblue(driver, gpus):
     coolblue = Website(html_item_grid="product-card", in_stock_text="Morgen bezorgd",
                                html_price="sales-price__current", site_enum=SiteEnum.Coolblue)
 
@@ -75,15 +75,20 @@ def coolblue(driver):
     return coolblue.get_items(driver)
 
 
-async def run():
+async def run(input_get_form):
     driver = webdriver.Chrome(ChromeDriverManager(print_first_line=False, log_level=0).install(), options=options)
     items = []
-    
-    print("searching items...")
-    items.extend(alternate(driver))
-    items.extend(azerty(driver))
-    items.extend(megekko(driver))
-    print("done looking for items")
+
+    all_gpus_list = price_dict.keys()
+
+    if len(input_get_form) == 0:
+        items.extend(alternate(driver, all_gpus_list))
+        # items.extend(azerty(driver, all_gpus_list))
+        # items.extend(megekko(driver, all_gpus_list))
+    else:
+        items.extend(alternate(driver, input_get_form))
+        # items.extend(azerty(driver))
+        # items.extend(megekko(driver))
 
     add_item_list_to_db(items)
 
